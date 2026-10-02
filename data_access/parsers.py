@@ -3,6 +3,7 @@
 from datetime import datetime
 from data_access.contracts import CBRDecision
 from data_access.contracts import KCBDailyPrice
+import csv
 
 
 def parse_cbr_row(row: dict) -> CBRDecision:
@@ -33,3 +34,26 @@ def parse_kcb_row(row: dict) -> KCBDailyPrice:
     )
 
     return form
+
+
+def load_cbr_decisions(path: str) -> list[CBRDecision]:
+    """
+    Opens up the cbr.csv and make sure its safe from source to form.
+    Returns a lists of CBRDecisions forms.
+    """
+    with open(path, encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f)
+        decisions = [parse_cbr_row(row) for row in reader]
+        return decisions
+
+
+def load_kcb_prices(path: str) -> list[KCBDailyPrice]:
+    """
+    Opens up the kcb.csv and makes sure its safe from source to form.
+    Returns a list of KCBDailyPrice forms.
+    """
+    with open(path, encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f)
+        prices = [parse_kcb_row(row) for row in reader]
+
+        return prices
