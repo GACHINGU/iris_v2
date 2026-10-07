@@ -19,3 +19,23 @@ def deduplicate_cbr_decisions(decisions: list) -> list:
             seen.add(decision.decision_date)
 
     return unique_decisions
+
+
+def is_chronologically_ordered(dates: list, increasing: bool = True) -> bool:
+    """
+    These function checks the dates chronological order, if the increasing switch is set to True,
+    then only checks the if condition under the if increasing == True, if the increasing switch is
+    set to False, python jumps the first if condition directly to the else condition and checks
+    whether date is chronologically ordered the way it will be needed. Returns a hard coded True
+    if no flag is detected, and False if date is not ordered as expected. increasing: bool = True
+    is the switch.
+    """
+    for i in range(1, len(dates)):
+        if increasing:
+            if dates[i] < dates[i - 1]:  # the decreasing instead of increasing flag
+                return False
+
+        else:
+            if dates[i] > dates[i - 1]:  # the increasing instead of decreasing flag
+                return False
+    return True
