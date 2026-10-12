@@ -19,3 +19,10 @@ class KCBDailyPrice:
     low_price: float  # the lowest price recorded on that day, float type hint
     close_price: float  # the closing price on that date, float type hint
     volume: int  # number of shares being traded that day, is expected to be integer because you cant trade a half a share
+
+
+@dataclass(frozen=True)
+class AlignedDay:
+    trade_date: date
+    close_price: float
+    cbr_rate: float | None
